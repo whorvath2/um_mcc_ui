@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchResults from "./searchResults";
 
 export default function Search() {
     const [termState, setTermState] =     React.useState("");
@@ -46,15 +47,10 @@ export default function Search() {
                                        type="text"
                                        placeholder="Search by name"
                                        onChange={event => setTermState(event.target.value || "")}/>
-                                <label className="col-form-label">Results: </label>
                             </div>
                             <button className="btn btn-primary">Search Staff</button>
                         </form>
-                        <ul id="results">
-                            {resultsStateRef.current.map((staffer) => (
-                                <li key={staffer.key}>{staffer.name} {staffer.title} {staffer.department}</li>
-                            ))}
-                        </ul>
+                        <SearchResults resultsStateRef={resultsStateRef}/>
                     </div>
                 </div>
             </div>
