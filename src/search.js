@@ -67,41 +67,42 @@ export default function Search() {
     }
 
     return (
-        <div className="Search">
-            <h5 className="title">Find Staff</h5>
-            <form onSubmit={search}>
-                <label className="label left">Name:
-                    <input id="searchTerm"
-                           className="form-control"
-                           type="text"
-                           placeholder="Search by name"
-                           onChange={event => setTermState(event.target.value || "")}/>
-                </label>
-                <button className="btn btn-primary">Search Staff</button>
-            </form>
-            <div className="container text-left">
-                <div className="row">
-                    <div className="col">
+        <div className="Search row">
+            <div className="col-2"/>
+            <div className="col gx-5">
+                <h3 className="title">Find Staff</h3>
+                <form className="form" onSubmit={search}>
+                    <label className="label">Name:
+                        <input id="searchTerm"
+                               className="form-control"
+                               type="text"
+                               placeholder="Search by name"
+                               onChange={event => setTermState(event.target.value || "")}/>
+                    </label>
+                    <button className="btn btn-primary">Search Staff</button>
+                    <div>
                         <label className="col-form-label">Search Results:</label>
                         <StafferList stateRef={resultsStateRef} makeChoice={makeChoice} areChosen={false} />
                     </div>
-                    <div className="col">
-                        <label className="col-form-label">Selected Attendees:</label>
-                        <StafferList stateRef={chosenStateRef} makeChoice={makeChoice} areChosen={true}/>
-                        <form onSubmit={calculateCost}>
-                            <label className="label left">Meeting Length:
-                                <input id="meetingLength"
-                                       className="form-control"
-                                       type="number"
-                                       placeholder="Enter length in minutes"
-                                       onChange={event => setMinutesState(event.target.valueAsNumber)}/>
-                            </label>
-                            <button className={"btn btn-primary"}>Calculate Meeting Cost</button>
-                        </form>
-                        <p>Meeting Cost: {costState}</p>
-                    </div>
-                </div>
+                </form>
             </div>
+            <div className="col gx-5">
+                <h3 className="title">Selected Attendees</h3>
+                <StafferList stateRef={chosenStateRef} makeChoice={makeChoice} areChosen={true}/>
+                <form className="form" onSubmit={calculateCost}>
+                    <label className="label left">Meeting Length:
+                        <input id="meetingLength"
+                               className="form-control"
+                               type="number"
+                               placeholder="Enter length in minutes"
+                               onChange={event => setMinutesState(event.target.valueAsNumber)}/>
+                    </label>
+                    <button className={"btn btn-primary"}>Calculate Meeting Cost</button>
+                </form>
+                <p>Meeting Cost: {costState}</p>
+            </div>
+            <div className="col-2"/>
+
         </div>
     )
 }

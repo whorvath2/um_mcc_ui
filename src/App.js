@@ -3,12 +3,11 @@ import Search from './search'
 function App() {
      return (
           <div className="App">
-               <header className="App-header">
-                    <h1>
-                         Meeting Cost Calculator
-                    </h1>
-                   <Search></Search>
-               </header>
+              <div className="container text-center">
+                  <h3>University of Michigan</h3>
+                  <h1>Meeting Cost Calculator</h1>
+              </div>
+              <Search></Search>
           </div>
      );
 }
