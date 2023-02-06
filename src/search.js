@@ -67,7 +67,7 @@ export default function Search() {
     }
 
     return (
-        <div className="Search container-sm">
+        <div className="Search container-fluid">
             <div className="row">
                 <div className="col-2"/>
                 <div className="col gx-5 sticky-top">
@@ -80,14 +80,14 @@ export default function Search() {
                                placeholder="Search by name"
                                onChange={event => setTermState(event.target.value || "")}/>
                         <button className="btn btn-primary">Search Staff</button>
-                        <div>
+                        <div className={"m-2"}>
                             <label className="col-form-label">Search Results:</label>
                             <StafferList stateRef={resultsStateRef} makeChoice={makeChoice} areChosen={false} />
                         </div>
                     </form>
                 </div>
                 <div className="col gx-5">
-                    <div className={"row sticky-top"}>
+                    <div className={"row sticky-top m-2"}>
                         <h3 className="title">Selected Attendees</h3>
                         <StafferList stateRef={chosenStateRef} makeChoice={makeChoice} areChosen={true}/>
                     </div>

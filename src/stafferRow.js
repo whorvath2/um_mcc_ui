@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function StafferRow({staffer, makeChoice}) {
+export default function StafferRow({staffer, makeChoice, isOdd}) {
     const findSep = new RegExp('[, ]', 'i');
     const capitalize = (word) => {
         if (word) {
@@ -37,8 +37,11 @@ export default function StafferRow({staffer, makeChoice}) {
     }
 
     return (
-        <div className='StafferRow row' key={staffer.key}>
-            <button className='button' onClick={() => makeChoice(staffer)}>
+        <div className={"StafferRow row "} key={staffer.key}>
+            <button
+                className={"button".concat(
+                    isOdd ? " text-bg-secondary" : "")}
+                onClick={() => makeChoice(staffer)}>
                 <b>{nameFixer(staffer)}</b> {capitalize(staffer.title)} ({capitalize(staffer.department)})
             </button>
         </div>
