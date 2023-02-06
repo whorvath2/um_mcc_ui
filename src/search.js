@@ -67,42 +67,50 @@ export default function Search() {
     }
 
     return (
-        <div className="Search row">
-            <div className="col-2"/>
-            <div className="col gx-5">
-                <h3 className="title">Find Staff</h3>
-                <form className="form" onSubmit={search}>
-                    <label className="label">Name:
+        <div className="Search container-sm">
+            <div className="row">
+                <div className="col-2"/>
+                <div className="col gx-5 sticky-top">
+                    <h3 className="title">Find Staff</h3>
+                    <form className="form" onSubmit={search}>
+                        <label className="label">Name:</label>
                         <input id="searchTerm"
                                className="form-control"
                                type="text"
                                placeholder="Search by name"
                                onChange={event => setTermState(event.target.value || "")}/>
-                    </label>
-                    <button className="btn btn-primary">Search Staff</button>
-                    <div>
-                        <label className="col-form-label">Search Results:</label>
-                        <StafferList stateRef={resultsStateRef} makeChoice={makeChoice} areChosen={false} />
+                        <button className="btn btn-primary">Search Staff</button>
+                        <div>
+                            <label className="col-form-label">Search Results:</label>
+                            <StafferList stateRef={resultsStateRef} makeChoice={makeChoice} areChosen={false} />
+                        </div>
+                    </form>
+                </div>
+                <div className="col gx-5">
+                    <div className={"row sticky-top"}>
+                        <h3 className="title">Selected Attendees</h3>
+                        <StafferList stateRef={chosenStateRef} makeChoice={makeChoice} areChosen={true}/>
                     </div>
-                </form>
+                </div>
             </div>
-            <div className="col gx-5">
-                <h3 className="title">Selected Attendees</h3>
-                <StafferList stateRef={chosenStateRef} makeChoice={makeChoice} areChosen={true}/>
-                <form className="form" onSubmit={calculateCost}>
-                    <label className="label left">Meeting Length:
+            <div className="row sticky-bottom text-bg-secondary p-3">
+                <div className={"col col-3"}>
+                    <form className="form vstack gap-3" onSubmit={calculateCost}>
+                        <label className="label left">Meeting Length:</label>
                         <input id="meetingLength"
                                className="form-control"
                                type="number"
                                placeholder="Enter length in minutes"
                                onChange={event => setMinutesState(event.target.valueAsNumber)}/>
-                    </label>
-                    <button className={"btn btn-primary"}>Calculate Meeting Cost</button>
-                </form>
-                <p>Meeting Cost: {costState}</p>
+                        <button className={"btn btn-primary"}>Calculate Meeting Cost</button>
+                    </form>
+                </div>
+                <div className={"col col-5"}>
+                    <div className={"row"}>
+                        <h2 className={"sticky-bottom text-center"}>Meeting Cost: {costState}</h2>
+                    </div>
+                </div>
             </div>
-            <div className="col-2"/>
-
         </div>
     )
 }

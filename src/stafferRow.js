@@ -37,8 +37,8 @@ export default function StafferRow({staffer, makeChoice}) {
     }
 
     return (
-        <div className={'StafferRow row'} key={staffer.key}>
-            <button className={'button'} onClick={() => makeChoice(staffer)}>
+        <div className='StafferRow row' key={staffer.key}>
+            <button className='button' onClick={() => makeChoice(staffer)}>
                 <b>{nameFixer(staffer)}</b> {capitalize(staffer.title)} ({capitalize(staffer.department)})
             </button>
         </div>
