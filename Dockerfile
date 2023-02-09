@@ -11,7 +11,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
 
 RUN apt-get -yq update \
     && apt-get -yq upgrade \
-    && apt-get install -yq nginx supervisor\
+    && apt-get install -yq nginx supervisor \
     && npm --version
 
 RUN groupadd -g $GUID api-service \
