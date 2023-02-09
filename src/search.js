@@ -37,7 +37,7 @@ export default function Search() {
         if (!query) {
             return [];
         }
-        fetch('http://localhost:8662/um_mcc/find?' + query)
+        fetch('http://localhost:8000/um_mcc/find?' + query)
             .then(response => response.json())
             .then(data => {
                 data.forEach(item => {item.chosen = false})
@@ -51,7 +51,7 @@ export default function Search() {
         if (!minutesState){
             return 0
         }
-        fetch('http://localhost:8662/um_mcc/cost/' + minutesState, {
+        fetch('http://localhost:8000/um_mcc/cost/' + minutesState, {
             method: 'POST',
             headers: {
               "Content-Type": "application/json",

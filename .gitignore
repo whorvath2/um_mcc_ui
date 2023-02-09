@@ -1,3 +1,6 @@
+#Apple
+**/.DS_Store
+
 # IntelliJ
 .idea/
 *.iml
@@ -73,6 +76,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
+.dev_env
 .env
 .env.test
 

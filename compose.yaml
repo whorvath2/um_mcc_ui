@@ -1,0 +1,12 @@
+services:
+  frontend:
+    image: localhost/um_mcc_ui_image
+    ports:
+      - "3000:3000"
+
+  backend:
+    image: localhost/um_mcc_image
+    ports:
+      - "8000:8000"
+
+network_mode: host
