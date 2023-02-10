@@ -3,6 +3,6 @@ import App from './App';
 
 test('renders header', () => {
   render(<App />);
-  const linkElement = screen.getByText(/University of Michigan/i);
-  expect(linkElement).toBeInTheDocument();
+  const linkElement = screen.getAllByText(/University of Michigan/i);
+  expect(linkElement[0]).toBeInTheDocument();
 });
