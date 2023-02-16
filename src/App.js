@@ -1,6 +1,6 @@
 import Search from './search'
 
-function App() {
+export default function App() {
      return (
           <div className="App">
               <div className="text-center text-bg-primary p-3">
@@ -23,4 +23,3 @@ function App() {
      );
 }
 
-export default App;

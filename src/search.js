@@ -11,24 +11,30 @@ export default function Search() {
     const chosenStateRef = React.useRef(chosenState)
 
     const setResultsState = data => {
+        data.sort(sortByName);
         resultsStateRef.current = data;
         _setResultsState(data);
     }
 
     const setChosenState = data => {
+        data.sort(sortByName);
         chosenStateRef.current = data;
         _setChosenState(data);
     }
 
+    function sortByName(stafferOne, stafferTwo) {
+        return (stafferOne.name === stafferTwo.name) ? 0 : (stafferOne.name > stafferTwo.name) ? 1 : -1;
+    }
+
     function makeChoice(staffer) {
         staffer.chosen = !staffer.chosen
-        if (staffer.chosen){
-            setChosenState(chosenState.filter(item => item.key !== staffer.key).concat(staffer))
-            setResultsState(resultsState.filter(emp => emp.key !== staffer.key))
+        if (staffer.chosen && !chosenState.some(emp => emp.key === staffer.key)){
+            setChosenState(chosenState.concat(staffer));
+            setResultsState(resultsState.filter(emp => emp.key !== staffer.key));
         }
-        else{
-            setChosenState(chosenState.filter(emp => emp.key !== staffer.key))
-            setResultsState(resultsState.concat(staffer))
+        else if (!staffer.chosen && !resultsState.some(emp => emp.key === staffer.key)){
+            setChosenState(chosenState.filter(emp => emp.key !== staffer.key));
+            setResultsState(resultsState.concat(staffer));
         }
     }
 
@@ -41,6 +47,8 @@ export default function Search() {
         fetch('http://localhost:8000/um_mcc/find?' + query)
             .then(response => response.json())
             .then(data => {
+                const chosenKeys = chosenState.map(item => item.key);
+                data = data.filter(item => !chosenKeys.includes(item.key))
                 data.forEach(item => {item.chosen = false})
                 setResultsState(data ? data : []);
             })
@@ -53,7 +61,7 @@ export default function Search() {
                 <div className={"col-2"}/>
                 <div className={"col col-4 gx-5 sticky-top"}>
                     <div className={"row m-2"}>
-                    <h3 className={"title"}>Find Staff</h3>
+                        <h3 className={"title"}>Find Staff</h3>
                         <form className={"form"} onSubmit={search}>
                             <label className={"label m-3"} htmlFor={"searchTerm"}>Name:</label>
                             <input id={"searchTerm"}
@@ -72,7 +80,7 @@ export default function Search() {
                 <div className={"col col-4 gx-5"}>
                     <div className={"row m-2"}>
                         <h3 className={"title"}>Selected Attendees</h3>
-                        <StafferList stateRef={chosenStateRef} makeChoice={makeChoice} areChosen={true} id="chosenAttendees"/>
+                        <StafferList stateRef={chosenStateRef} makeChoice={makeChoice} areChosen={true} id="chosenAttendees" />
                     </div>
                 </div>
                 <div className={"col-2"}/>
