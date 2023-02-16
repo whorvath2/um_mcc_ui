@@ -8,6 +8,12 @@ function setupSearch() {
     fetch.mockResponse(fakeStaffList);
 }
 
+const meetingCost = "20"
+function setupCostCalculator(){
+    fetch.resetMocks();
+    fetch.mockResponse(JSON.stringify({"cost": meetingCost}));
+}
+
 it("finds and shows staff by name", async() => {
     const {user} = setup(<Search />);
 
@@ -53,20 +59,27 @@ it("calculates meeting costs correctly", async() => {
     setupSearch();
 
     let input = screen.getByLabelText("Name:");
-    const button = screen.getByRole("button", { "name": "Search Staff"});
+    const sButton = screen.getByRole("button", { "name": "Search Staff"});
 
     await user.type(input, "Doe");
-    await user.click(button);
+    await user.click(sButton);
     await user.clear(input);
     await user.type(input, "Innovera");
-    await user.click(button);
+    await user.click(sButton);
 
     const jButton = screen.getByRole("button", {name: "1"});
     const mButton = screen.getByRole("button", {name: "2"});
     await user.click(jButton);
     await user.click(mButton);
 
+    setupCostCalculator();
     // Both people are now selected as attendees...
-    // TO-DO
+    input = screen.getByLabelText("Meeting Length:");
+    const cButton = screen.getByRole("button", {name: "Calculate Meeting Cost"})
+    await user.type(input, "10");
+    await user.click(cButton);
+    const received = screen.getByText(/Meeting Cost:/).textContent
+
+    expect(received).toContain(meetingCost);
 
 });

@@ -18,7 +18,6 @@ export default function MeetingCalculator({chosenStateRef}) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 setCostState("$" + data.cost);
             })
             .catch(error => console.log(error));
@@ -29,7 +28,7 @@ export default function MeetingCalculator({chosenStateRef}) {
             <div className={"col-2"}/>
             <div className={"col col-4 text-bg-secondary p-3"}>
                 <form className="form vstack gap-3" onSubmit={calculateCost}>
-                    <label className="label left">Meeting Length:</label>
+                    <label className="label left" htmlFor={"meetingLength"}>Meeting Length:</label>
                     <input id="meetingLength"
                            className="form-control w-50"
                            type="number"
