@@ -21,7 +21,7 @@ This is a [react](https://reactjs.org)-based UI that uses the [um_mcc](https://g
 
 This application's services (the UI and the back end) can be run independently, however it's designed to run in a VM capable of running containerized applications, such as [podman](https://podman.io/getting-started/installation). The [compose](compose.yaml) file enables orchestration tools like [podman-compose](https://github.com/containers/podman-compose) to launch the entire suite of services together.
 
-## Use
+## Building
 
 To build the container images, open a terminal session in this directory, then build the images:  
 
@@ -30,6 +30,8 @@ podman build --tag um_mcc_ui_image .
 cd um_mcc
 podman build --tag um_mcc_image .
 ```
+
+## Usage
 
 To launch the application in the same terminal session, use your orchestration tool (`podman-compose` in this case):
 

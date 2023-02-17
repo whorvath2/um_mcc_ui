@@ -33,13 +33,12 @@ export default function StafferRow({staffer, makeChoice, isOdd}) {
     }
 
     return (
-        <div className={"StafferRow row"} key={staffer.key}>
-            <button
-                className={"button".concat(
+        <div className={"row"} key={staffer.key}>
+            <button className={"button".concat(
                     isOdd ? " text-bg-primary" : "")}
                 aria-label={staffer.key}
                 onClick={() => makeChoice(staffer)}>
-                <b>{capitalize(staffer.name)}</b> {capitalize(staffer.title)} ({capitalize(staffer.department)})
+                <span className={"fw-bold"}>{capitalize(staffer.name)}</span> {capitalize(staffer.title)} ({capitalize(staffer.department)})
             </button>
         </div>
     );

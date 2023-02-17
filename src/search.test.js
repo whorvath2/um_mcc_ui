@@ -22,7 +22,7 @@ it("finds and shows staff by name", async() => {
     const input = screen.getByLabelText("Name:");
     await user.type(input, "Doe");
     expect(input).toHaveValue('Doe');
-    const button = screen.getByRole("button", { "name": "Search Staff"});
+    const button = screen.getByRole("button", { "name": "Search"});
     expect(button).not.toBeNull();
     await user.click(button);
     expect(fetch).toHaveBeenCalledTimes(1);
@@ -36,7 +36,7 @@ it("moves selected staff from search results to chosen attendees", async() => {
     setupSearch();
     const input = screen.getByLabelText("Name:");
     await user.type(input, "Doe");
-    let button = screen.getByRole("button", { "name": "Search Staff"});
+    let button = screen.getByRole("button", { "name": "Search"});
     await user.click(button);
 
     let searchResults = screen.getByLabelText("searchResults");
@@ -54,12 +54,12 @@ it("moves selected staff from search results to chosen attendees", async() => {
     // expect(searchResults).toBeEmptyDOMElement();
 });
 
-it("calculates meeting costs correctly", async() => {
+it("Displays meeting costs when asked", async() => {
     const {user} = setup(<App />);
     setupSearch();
 
     let input = screen.getByLabelText("Name:");
-    const sButton = screen.getByRole("button", { "name": "Search Staff"});
+    const sButton = screen.getByRole("button", { "name": "Search"});
 
     await user.type(input, "Doe");
     await user.click(sButton);

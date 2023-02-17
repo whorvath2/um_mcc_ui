@@ -40,6 +40,8 @@ export default function Search() {
 
     function search(e) {
         e.preventDefault();
+        setResultsState([]);
+
         const query ='name='.concat(`${termState}`);
         if (!query) {
             return [];
@@ -56,25 +58,23 @@ export default function Search() {
     }
 
     return (
-        <div className={"Search"}>
+        <div className={"container p-5"}>
             <div className={"row"}>
                 <div className={"col-2"}/>
                 <div className={"col col-4 gx-5 sticky-top"}>
-                    <div className={"row m-2"}>
-                        <h3 className={"title"}>Find Staff</h3>
-                        <form className={"form"} onSubmit={search}>
-                            <label className={"label m-3"} htmlFor={"searchTerm"}>Name:</label>
-                            <input id={"searchTerm"}
-                                   className={"form-control"}
-                                   type={"text"}
-                                   placeholder={"Search by name"}
-                                   onChange={event => setTermState(event.target.value || "")}/>
-                            <button className={"btn btn-primary m-3"}>Search Staff</button>
-                            <div className={"m-2"}>
-                                <p className={"col-form-label"}>Search Results:</p>
-                                <StafferList stateRef={resultsStateRef} makeChoice={makeChoice} areChosen={false} id={"searchResults"}/>
-                            </div>
-                        </form>
+                    <h3 className={"title"}>Find Staff</h3>
+                    <form className={"form hstack"} onSubmit={search}>
+                        <label className={"label m-2"} htmlFor={"searchTerm"}>Name:</label>
+                        <input id={"searchTerm"}
+                               className={"form-control m-1"}
+                               type={"text"}
+                               placeholder={"Search by name"}
+                               onChange={event => setTermState(event.target.value || "")}/>
+                        <button className={"btn btn-primary m-1"}>Search</button>
+                    </form>
+                    <div>
+                        <p className={"col-form-label"}>Search Results:</p>
+                        <StafferList stateRef={resultsStateRef} makeChoice={makeChoice} areChosen={false} id={"searchResults"}/>
                     </div>
                 </div>
                 <div className={"col col-4 gx-5"}>
