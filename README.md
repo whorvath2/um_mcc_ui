@@ -1,4 +1,4 @@
-# University of Michigan Meeting Cost Calculator
+# Meeting Cost Calculator for University of Michigan® Staff
 
 ## Summary
 
@@ -6,8 +6,10 @@ This is an application for calculating the cost of meetings that include Univers
 
 ## Description
 
-The purpose of this application is to provide an easy means of calculating the cost of one or more University of Michigan staff attending any particular meeting. By choosing meeting attendees and entering the meeting's length, the user can see the actual cost of the meeting in terms of how much the university is spending to have the attendees there.
-
+The purpose of this application is to provide an easy means of calculating the cost of one or more University of
+Michigan staff attending any particular meeting. By choosing meeting attendees and entering the meeting's length, the
+user can see the actual cost of the meeting in terms of how much the University is spending on their salaries to have
+the attendees there.
 
 ## Inspiration
 
@@ -42,14 +44,17 @@ podman-compose up -d
 
 To see the application, [open your browser to localhost:3000](http://localhost:3000/).
 
-
 ## Version
 
-1.1.0
+1.2.0
 
 ## Disclaimers
 
-University of Michigan, UM, U-M, and U of M are trademarks™ or registered® trademarks of the University of Michigan. Use of them does not imply any affiliation with or endorsement by the University of Michigan. For all other disclaimers, [see the LICENSE file in this repository](LICENSE).
+**THIS APPLICATION IS NEITHER ENDORSED BY NOR ASSOCIATED WITH THE UNIVERSITY OF MICHIGAN®.**
+
+University of Michigan, UM, U-M, and U of M are trademarks™ or registered® trademarks of the University of Michigan. Use
+of them does not imply any affiliation with or endorsement by the University of Michigan. For all other
+disclaimers, [see the LICENSE file in this repository](LICENSE).
 
 _Thank you termly.io for the disclaimer language._
 
