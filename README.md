@@ -53,8 +53,9 @@ To see the application, [open your browser to localhost:3000](http://localhost:3
 **THIS APPLICATION IS NEITHER ENDORSED BY NOR ASSOCIATED WITH THE UNIVERSITY OF MICHIGAN®.**
 
 University of Michigan, UM, U-M, and U of M are trademarks™ or registered® trademarks of the University of Michigan. Use
-of them does not imply any affiliation with or endorsement by the University of Michigan. For all other
-disclaimers, [see the LICENSE file in this repository](LICENSE).
+of them does not imply any affiliation with or endorsement by the University of Michigan. **For all other
+disclaimers, including limitations of liability and a disclaimer of
+warranty, [see the LICENSE file in this repository](LICENSE).**
 
 _Thank you termly.io for the disclaimer language._
 
