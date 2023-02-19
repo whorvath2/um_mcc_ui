@@ -28,11 +28,10 @@ export default function Search() {
 
     function makeChoice(staffer) {
         staffer.chosen = !staffer.chosen
-        if (staffer.chosen && !chosenState.some(emp => emp.key === staffer.key)){
+        if (staffer.chosen && !chosenState.some(emp => emp.key === staffer.key)) {
             setChosenState(chosenState.concat(staffer));
             setResultsState(resultsState.filter(emp => emp.key !== staffer.key));
-        }
-        else if (!staffer.chosen && !resultsState.some(emp => emp.key === staffer.key)){
+        } else if (!staffer.chosen && !resultsState.some(emp => emp.key === staffer.key)) {
             setChosenState(chosenState.filter(emp => emp.key !== staffer.key));
             setResultsState(resultsState.concat(staffer));
         }
@@ -42,7 +41,7 @@ export default function Search() {
         e.preventDefault();
         setResultsState([]);
 
-        const query ='name='.concat(`${termState}`);
+        const query = 'name='.concat(`${termState}`);
         if (!query) {
             return [];
         }
@@ -51,7 +50,9 @@ export default function Search() {
             .then(data => {
                 const chosenKeys = chosenState.map(item => item.key);
                 data = data.filter(item => !chosenKeys.includes(item.key))
-                data.forEach(item => {item.chosen = false})
+                data.forEach(item => {
+                    item.chosen = false
+                })
                 setResultsState(data ? data : []);
             })
             .catch((error) => console.log(error));
@@ -69,23 +70,31 @@ export default function Search() {
                                className={"form-control m-1"}
                                type={"text"}
                                placeholder={"Search by name"}
-                               onChange={event => setTermState(event.target.value || "")}/>
+                               onChange={event => {
+                                   const usertxt = event.target.value;
+                                   setTermState(usertxt || "");
+                                   if (!usertxt){
+                                       setResultsState([]);
+                                   }
+                               }}/>
                         <button className={"btn btn-primary m-1"}>Search</button>
                     </form>
                     <div>
                         <p className={"col-form-label"}>Search Results:</p>
-                        <StafferList stateRef={resultsStateRef} makeChoice={makeChoice} areChosen={false} id={"searchResults"}/>
+                        <StafferList stateRef={resultsStateRef} makeChoice={makeChoice} areChosen={false}
+                                     id={"searchResults"}/>
                     </div>
                 </div>
                 <div className={"col col-4 gx-5"}>
                     <div className={"row m-2"}>
                         <h3 className={"title"}>Selected Attendees</h3>
-                        <StafferList stateRef={chosenStateRef} makeChoice={makeChoice} areChosen={true} id="chosenAttendees" />
+                        <StafferList stateRef={chosenStateRef} makeChoice={makeChoice} areChosen={true}
+                                     id="chosenAttendees"/>
                     </div>
                 </div>
                 <div className={"col-2"}/>
             </div>
-            <MeetingCalculator chosenStateRef={chosenStateRef} />
+            <MeetingCalculator chosenStateRef={chosenStateRef}/>
         </div>
     )
 }
