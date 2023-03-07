@@ -4,6 +4,8 @@ import MeetingCalculator from "./meetingCalculator";
 
 export default function Search() {
     const [nameState, setNameState] = React.useState("");
+    const [titleState, setTitleState] = React.useState("");
+    const [deptState, setDeptState] = React.useState("");
     const [resultsState, _setResultsState] = React.useState([]);
     const [chosenState, _setChosenState] = React.useState([]);
 
@@ -41,7 +43,10 @@ export default function Search() {
         e.preventDefault();
         setResultsState([]);
 
-        const query = 'name='.concat(`${nameState}`);
+        // The API is robust to empty title and department parameters
+        const query = 'name='.concat(`${nameState}`)
+            .concat('&department=').concat(`${deptState}`)
+            .concat('&title=').concat(`${titleState}`);
         if (!query) {
             return [];
         }
