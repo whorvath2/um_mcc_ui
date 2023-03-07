@@ -65,15 +65,15 @@ export default function Search() {
                 <div className={"col col-4 gx-5 sticky-top"}>
                     <h3 className={"title"}>Find Staff</h3>
                     <form className={"form hstack"} onSubmit={search}>
-                        <label className={"label m-2"} htmlFor={"searchTerm"}>Name:</label>
-                        <input id={"searchTerm"}
+                        <label className={"label m-2"} htmlFor={"searchName"}>Name:</label>
+                        <input id={"searchName"}
                                className={"form-control m-1"}
                                type={"text"}
                                placeholder={"Search by name"}
                                onChange={event => {
                                    const usertxt = event.target.value;
                                    setTermState(usertxt || "");
-                                   if (!usertxt){
+                                   if (!usertxt) {
                                        setResultsState([]);
                                    }
                                }}/>
