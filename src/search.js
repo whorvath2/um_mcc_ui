@@ -69,18 +69,36 @@ export default function Search() {
                 <div className={"col-2"}/>
                 <div className={"col col-4 gx-5 sticky-top"}>
                     <h3 className={"title"}>Find Staff</h3>
-                    <form className={"form hstack"} onSubmit={search}>
+                    <form className={"form vstack"} onSubmit={search}>
                         <label className={"label m-2"} htmlFor={"searchName"}>Name:</label>
                         <input id={"searchName"}
                                className={"form-control m-1"}
                                type={"text"}
                                placeholder={"Search by name"}
                                onChange={event => {
-                                   const usertxt = event.target.value;
-                                   setNameState(usertxt || "");
-                                   if (!usertxt) {
+                                   const nametxt = event.target.value;
+                                   setNameState(nametxt || "");
+                                   if (!nametxt) {
                                        setResultsState([]);
                                    }
+                               }}/>
+                        <label className={"label m-2"} htmlFor={"searchTitle"}>Title:</label>
+                        <input id={"searchTitle"}
+                               className={"form-control m-1"}
+                               type={"text"}
+                               placeholder={"Search by title (optional)"}
+                               onChange={event => {
+                                   const titletxt = event.target.value;
+                                   setTitleState(titletxt || "");
+                               }}/>
+                        <label className={"label m-2"} htmlFor={"searchDept"}>Department:</label>
+                        <input id={"searchDept"}
+                               className={"form-control m-1"}
+                               type={"text"}
+                               placeholder={"Search by department (optional)"}
+                               onChange={event => {
+                                   const depttxt = event.target.value;
+                                   setDeptState(depttxt || "");
                                }}/>
                         <button className={"btn btn-primary m-1"}>Search</button>
                     </form>
