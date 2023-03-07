@@ -3,7 +3,7 @@ import StafferList from "./stafferList";
 import MeetingCalculator from "./meetingCalculator";
 
 export default function Search() {
-    const [termState, setTermState] = React.useState("");
+    const [nameState, setNameState] = React.useState("");
     const [resultsState, _setResultsState] = React.useState([]);
     const [chosenState, _setChosenState] = React.useState([]);
 
@@ -41,7 +41,7 @@ export default function Search() {
         e.preventDefault();
         setResultsState([]);
 
-        const query = 'name='.concat(`${termState}`);
+        const query = 'name='.concat(`${nameState}`);
         if (!query) {
             return [];
         }
@@ -72,7 +72,7 @@ export default function Search() {
                                placeholder={"Search by name"}
                                onChange={event => {
                                    const usertxt = event.target.value;
-                                   setTermState(usertxt || "");
+                                   setNameState(usertxt || "");
                                    if (!usertxt) {
                                        setResultsState([]);
                                    }
