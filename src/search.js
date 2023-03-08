@@ -43,13 +43,14 @@ export default function Search() {
         e.preventDefault();
         setResultsState([]);
 
+        if (!nameState) {
+            alert("Name is required");
+            return;
+        }
         // The API is robust to empty title and department parameters
         const query = 'name='.concat(`${nameState}`)
             .concat('&department=').concat(`${deptState}`)
             .concat('&title=').concat(`${titleState}`);
-        if (!query) {
-            return [];
-        }
         fetch('http://localhost:8000/um_mcc/find?' + query)
             .then(response => response.json())
             .then(data => {
@@ -69,7 +70,7 @@ export default function Search() {
                 <div className={"col-2"}/>
                 <div className={"col col-4 gx-5 sticky-top"}>
                     <h3 className={"title"}>Find Staff</h3>
-                    <form className={"form vstack"} onSubmit={search}>
+                    <form id="searchForm" className={"form vstack"} onSubmit={search}>
                         <label className={"label m-2"} htmlFor={"searchName"}>Name:</label>
                         <input id={"searchName"}
                                className={"form-control m-1"}
@@ -101,6 +102,15 @@ export default function Search() {
                                    setDeptState(depttxt || "");
                                }}/>
                         <button className={"btn btn-primary m-1"}>Search</button>
+                        <button className={"btn btn-secondary m-1"} onClick={event => {
+                            event.preventDefault();
+                            document.getElementById("searchForm").reset();
+                            setNameState("");
+                            setTitleState("");
+                            setDeptState("");
+                            setResultsState([]);
+                        }}>Clear All
+                        </button>
                     </form>
                     <div>
                         <p className={"col-form-label"}>Search Results:</p>
