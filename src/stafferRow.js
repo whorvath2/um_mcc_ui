@@ -3,22 +3,24 @@ import React from "react";
 export default function StafferRow({staffer, makeChoice, isOdd}) {
     function capitalizer(word) {
         let out = '';
-        if (!word){
+        if (!word) {
             return out;
-        }
-        else if (word.match(/^Jr|Sr$/i)){
+        } else if (word.match(/^[js]r$/i)) {
+            console.log(word);
             out = word[0].toUpperCase() + "r";
-        }
-        else if (word.match(/^I+V?(I+)?$/i)){
+            console.log(out);
+        } else if (word.match(/^[iv]+$/i)) {
             out = word.toUpperCase();
-            if (out === "JR") { out = "Jr"}
-            else if (out === "SR") { out = "Sr"}
-        }
-        else {
+        } else if (word === "of") {
+            out = word;
+        } else {
             out = word[0].toUpperCase();
             if (word.length > 1) {
                 out += word.slice(1);
             }
+        }
+        if (out === "Mi" || out === "Mm") {
+            out = out.toUpperCase();
         }
         return out;
     }
