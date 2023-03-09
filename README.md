@@ -55,7 +55,7 @@ To see the application, [open your browser to localhost:3000](http://localhost:3
 
 To build and run the applications manually, you will need the current release
 of [Python](https://www.python.org/downloads/) and [NodeJS](https://nodejs.org/en/download/). After they are installed,
-open a terminal session in this directory, install the API, then run both the API and the UI:
+open a terminal session in this directory, then run both the API and the UI:
 
 ```
 # Create and activate a virtual python environment
