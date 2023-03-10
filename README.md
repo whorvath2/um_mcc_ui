@@ -1,14 +1,3 @@
-<style>
-img
-{
-    display:block; 
-    float:none; 
-    margin-left:auto;
-    margin-right:auto;
-    width:60%;
-}
-</style> 
-
 # Meeting Cost Calculator for University of Michigan® Staff
 
 ## Summary
@@ -16,6 +5,7 @@ img
 This is an application for calculating the cost of meetings that include University of Michigan staff.
 
 ![The application as it initially appears.](public/startup.png)
+
 _<sub><p style="text-align: center">The application on startup</p></sub>_
 
 ## Description
