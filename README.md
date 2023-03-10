@@ -2,11 +2,14 @@
 
 ## Summary
 
-This is an application for calculating the cost of meetings that include University of Michigan staff.
+This is an application for calculating the cost of meetings that include University of Michigan staff.  
+
+---
 
 ![The application as it initially appears.](public/startup.png)
+<em><sub>The application on startup</sub></em>
 
-_<sub><p style="text-align: center">The application on startup</p></sub>_
+---
 
 ## Description
 
