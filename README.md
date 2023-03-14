@@ -90,7 +90,7 @@ To see the application, [open your browser to localhost:3000](http://localhost:3
 
 ## Version
 
-1.3.0
+1.3.1
 
 ## Disclaimers
 
