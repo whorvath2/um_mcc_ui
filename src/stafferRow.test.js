@@ -1,5 +1,5 @@
-import StafferRow from './stafferRow'
-import {render, screen, cleanup} from '@testing-library/react'
+import StafferRow from './stafferRow/stafferRow'
+import {cleanup, render, screen} from '@testing-library/react'
 import {fakeStaffList} from "./setupTests";
 
 describe('StafferRow', () => {
@@ -7,7 +7,8 @@ describe('StafferRow', () => {
 
         const staffers = JSON.parse(fakeStaffList);
 
-        render(<StafferRow staffer={staffers[0]} isOdd={true} makeChoice={() => {}} />);
+        render(<StafferRow staffer={staffers[0]} isOdd={true} makeChoice={() => {
+        }}/>);
         let element = screen.getByRole("button", {ariaLabel: staffers[0].key});
         expect(element.textContent).toBe("Doe II John Q Grand Poo-bah (Foobar)");
         cleanup();

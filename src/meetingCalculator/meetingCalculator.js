@@ -1,5 +1,5 @@
 import React from "react";
-import Footer from "./footer";
+import Footer from "../footer/footer";
 
 export default function MeetingCalculator({chosenStateRef}) {
     const [minutesState, setMinutesState] = React.useState(0)

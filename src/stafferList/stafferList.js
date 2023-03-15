@@ -1,5 +1,5 @@
 import React from 'react';
-import StafferRow from "./stafferRow";
+import StafferRow from "../stafferRow/stafferRow";
 
 export default function StafferList({stateRef, makeChoice, areChosen, id}) {
     return (

@@ -1,6 +1,6 @@
-import App from './App'
+import App from '../App'
 import Search from './search'
-import {fakeStaffList, setup} from './setupTests'
+import {fakeStaffList, setup} from '../setupTests'
 import {screen} from '@testing-library/react'
 
 
