@@ -1,6 +1,6 @@
 import React from 'react';
-import StafferList from "./stafferList";
-import MeetingCalculator from "./meetingCalculator";
+import StafferList from "../stafferList/stafferList";
+import MeetingCalculator from "../meetingCalculator/meetingCalculator";
 
 export default function Search() {
     const [nameState, setNameState] = React.useState("");
@@ -24,9 +24,9 @@ export default function Search() {
         _setChosenState(data);
     }
 
-    function sortByName(stafferOne, stafferTwo) {
-        return (stafferOne.name === stafferTwo.name) ? 0 : (stafferOne.name > stafferTwo.name) ? 1 : -1;
-    }
+    const sortByName = (stafferOne, stafferTwo) => (stafferOne.name === stafferTwo.name)
+        ? 0 : (stafferOne.name > stafferTwo.name)
+            ? 1 : -1;
 
     function makeChoice(staffer) {
         staffer.chosen = !staffer.chosen
@@ -39,8 +39,8 @@ export default function Search() {
         }
     }
 
-    function search(e) {
-        e.preventDefault();
+    function search(event) {
+        event.preventDefault();
         setResultsState([]);
 
         if (!nameState) {

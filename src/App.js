@@ -1,4 +1,4 @@
-import Search from './search'
+import Search from './search/search'
 
 export default function App() {
      return (
