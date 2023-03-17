@@ -13,9 +13,9 @@ describe('StafferList', () => {
         };
         const makeChoice = jest.fn();
         const areChosen = false;
-        const id = 'staffer-list';
+        const id = 'staffer.tsx-list';
 
-        render(<StafferList stateRef={stateRef} makeChoice={makeChoice} areChosen={areChosen} id={id} />);
+        render(<StafferList staffers={stateRef} makeChoice={makeChoice} areChosen={areChosen} name={id}/>);
 
         const listContainer = screen.getByLabelText(id);
         expect(listContainer).toBeInTheDocument();
