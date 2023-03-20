@@ -1,29 +1,65 @@
 import App from '../App'
 import Search from './search'
-import {fakeStaffList, setup} from '../setupTests'
+import {setup} from '../setupTests'
 import {screen} from '@testing-library/react'
 
 
-function setupSearch() {
-    fetch.mockResponse(fakeStaffList);
-}
+const johnDoe = {
+    "key": 1,
+    "name": "DOE II, JOHN Q",
+    "title": "Grand Poo-Bah",
+    "department": "Foobar",
+    "salary": "1000.00"
+};
+const margeInoverra = {
+    "key": 2,
+    "name": "Inoverra JR, Margaret A",
+    "title": "Grand Vizier",
+    "department": "Foobar",
+    "salary": "2000.00"
+};
+const methodInoperable = {
+    "key": 3,
+    "name": "Inoperable, Method",
+    "title": "Minor Player",
+    "department": "Foobar",
+    "salary": "3000.00"
+};
+const georginoFoobar = {
+    "key": 4,
+    "name": "Foobar, Georgino",
+    "title": "Silly Man",
+    "department": "Silly Walks",
+    "salary": "4000.00"
+};
+const fredYino = {
+    "key": 5,
+    "name": "Yino, Fred G",
+    "title": "Major Grump",
+    "department": "Arguments",
+    "salary": "5000.00"
+};
 
-const meetingCost = "20"
-function setupCostCalculator(){
-    fetch.resetMocks();
-    fetch.mockResponse(JSON.stringify({"cost": meetingCost}));
-}
+const setupFakeSearch = (results) => fetch.mockResponse(JSON.stringify(results));
 
-describe('Search', () => {
-    it("finds and shows staff by name", async() => {
-        const {user} = setup(<Search />);
 
-        setupSearch();
+export const fakeStaffList = JSON.stringify([
+    johnDoe,
+    margeInoverra,
+    methodInoperable,
+    georginoFoobar,
+    fredYino
+])
+
+describe('Search component works correctly', () => {
+    it("finds and shows staff by name", async () => {
+        const {user} = setup(<Search/>);
+        setupFakeSearch([johnDoe]);
 
         const input = screen.getByLabelText("Name:");
         await user.type(input, "Doe");
         expect(input).toHaveValue('Doe');
-        const button = screen.getByRole("button", { "name": "Search"});
+        const button = screen.getByRole("button", {"name": "Search"});
         expect(button).not.toBeNull();
         await user.click(button);
         expect(fetch).toHaveBeenCalledTimes(1);
@@ -33,13 +69,13 @@ describe('Search', () => {
     });
 
     it("moves selected staff from search results to chosen attendees", async() => {
-        const {user} = setup(<Search />);
-        setupSearch();
+        const {user} = setup(<Search/>);
+        setupFakeSearch([johnDoe]);
+
         const input = screen.getByLabelText("Name:");
         await user.type(input, "Doe");
-        let button = screen.getByRole("button", { "name": "Search"});
+        let button = screen.getByRole("button", {"name": "Search"});
         await user.click(button);
-
         let searchResults = screen.getByLabelText("searchResults");
         let chosenAttendees = screen.getByLabelText("chosenAttendees");
         expect(chosenAttendees).toBeEmptyDOMElement();
@@ -56,25 +92,27 @@ describe('Search', () => {
     });
 
     it("Displays meeting costs when asked", async() => {
-        const {user} = setup(<App />);
-        setupSearch();
+        const {user} = setup(<App/>);
 
+        setupFakeSearch([johnDoe]);
         let input = screen.getByLabelText("Name:");
-        const sButton = screen.getByRole("button", { "name": "Search"});
-
+        const searchButton = screen.getByRole("button", {"name": "Search"});
         await user.type(input, "Doe");
-        await user.click(sButton);
+        await user.click(searchButton);
+        const jButton = screen.getByTestId("data-testid-1");
+        await user.click(jButton);
+
+        setupFakeSearch([margeInoverra]);
         await user.clear(input);
         await user.type(input, "Innovera");
-        await user.click(sButton);
-
-        const jButton = screen.getByRole("button", {name: "1"});
+        await user.click(searchButton);
         const mButton = screen.getByRole("button", {name: "2"});
-        await user.click(jButton);
         await user.click(mButton);
-
-        setupCostCalculator();
         // Both people are now selected as attendees...
+
+        const meetingCost = "20"
+        fetch.mockResponse(JSON.stringify({"cost": meetingCost}));
+
         input = screen.getByLabelText("Meeting Length:");
         const cButton = screen.getByRole("button", {name: "Calculate Meeting Cost"})
         await user.type(input, "10");
@@ -84,4 +122,28 @@ describe('Search', () => {
         expect(received).toContain(meetingCost);
 
     });
+
+    it("Sorts correctly by priority", async () => {
+        const {user} = setup(<Search/>);
+        setupFakeSearch([georginoFoobar, methodInoperable, fredYino, margeInoverra])
+        let input = screen.getByLabelText("Name:");
+        await user.type(input, "Ino");
+        const searchButton = screen.getByRole("button", {"name": "Search"});
+        expect(searchButton).toBeEnabled();
+        await user.click(searchButton);
+        let staffButtons = screen.getAllByTestId("data-testid", {exact: false, hidden: false});
+        expect(staffButtons[0]).toHaveTextContent("Inoperable")
+        expect(staffButtons[1]).toHaveTextContent("Inoverra")
+        expect(staffButtons[2]).toHaveTextContent("Foobar")
+        expect(staffButtons[3]).toHaveTextContent("Yino")
+    })
+
+    it("Keeps search button disabled until a name is entered", async () => {
+        const {user} = setup(<Search/>);
+        const searchButton = screen.getByRole("button", {"name": "Search"});
+        expect(searchButton).not.toBeEnabled();
+        let input = screen.getByLabelText("Name:");
+        await user.type(input, "foobar");
+        expect(searchButton).toBeEnabled();
+    })
 });

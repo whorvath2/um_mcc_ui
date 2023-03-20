@@ -45,8 +45,9 @@ export function StafferRow(props: StafferRowType) {
     const makeChoice = props.makeChoice;
     return (
         <div className={"row"} key={staffer.key}>
-            <button className={"button".concat(
-                isOdd ? " text-bg-primary" : "")}
+            <button data-testid={`data-testid-${staffer.key}`}
+                    className={"button".concat(
+                        isOdd ? " text-bg-primary" : "")}
                     aria-label={staffer.key.toString()}
                     onClick={() => makeChoice(staffer)}>
                 <span

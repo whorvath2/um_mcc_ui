@@ -14,22 +14,44 @@ export default function Search() {
     const chosenStateRef: React.MutableRefObject<Staffer[]> = React.useRef(chosenState)
 
     const setResultsState = (data: Staffer[]) => {
-        data.sort(sortByName);
+        data.sort(sortByPriority);
         resultsStateRef.current = data;
         _setResultsState(data);
     }
 
     const setChosenState = (data: Staffer[]) => {
-        data.sort(sortByName);
+        data.sort(sortByPriority);
         chosenStateRef.current = data;
         _setChosenState(data);
     }
 
-    const sortByName = (stafferOne: Staffer, stafferTwo: Staffer) => (stafferOne.name === stafferTwo.name)
-        ? 0 : (stafferOne.name > stafferTwo.name)
-            ? 1 : -1;
+    const sortByName = (stafferOne: Staffer, stafferTwo: Staffer): number =>
+        (stafferOne.name.toUpperCase() > stafferTwo.name.toUpperCase()) ? 1 : -1;
 
-    function makeChoice(staffer: Staffer) {
+    /**
+     * (This function is not case-sensitive.) Returns -1 if stafferOne's name starts with the search term and
+     * stafferTwo's does not; 1 if stafferTwo's name starts with the search term and stafferOne's does not;
+     * otherwise delegates to {@link sortByName(Staffer, Staffer)}. I.e., this function provides a means of
+     * sorting a list of staffers such that those whose family names match the search term are prioritized
+     * first, and the rest are sorted in alphabetical order.
+     *
+     * @param stafferOne The first staffer whose name will be compared to the second's.
+     * @param stafferTwo The second staffer whose name will be compared to the first's.
+     */
+    const sortByPriority = (stafferOne: Staffer, stafferTwo: Staffer): number => {
+        const ucNameState = nameState.toUpperCase();
+        const ucNameOne = stafferOne.name.toUpperCase();
+        const ucNameTwo = stafferTwo.name.toUpperCase();
+        const nameOneStartsWithSearchTerm = ucNameOne.startsWith(ucNameState);
+        const nameTwoStartsWithSearchTerm = ucNameTwo.startsWith(ucNameState);
+        if ((nameOneStartsWithSearchTerm && nameTwoStartsWithSearchTerm)
+            || (!nameOneStartsWithSearchTerm && !nameTwoStartsWithSearchTerm)) {
+            return sortByName(stafferOne, stafferTwo);
+        }
+        return (nameOneStartsWithSearchTerm) ? -1 : 1;
+    }
+
+    function makeChoice(staffer: Staffer): void {
         staffer.chosen = !staffer.chosen
         if (staffer.chosen && !chosenState.some((emp: Staffer) => emp.key === staffer.key)) {
             setChosenState(chosenState.concat(staffer));
@@ -40,7 +62,7 @@ export default function Search() {
         }
     }
 
-    function search(event: FormEvent<HTMLFormElement>) {
+    function search(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault();
         setResultsState([]);
 
@@ -64,7 +86,7 @@ export default function Search() {
             })
             .catch((error) => {
                 console.log(error);
-                alert(error);
+                alert("The API service is not responding.");
             });
     }
 
