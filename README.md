@@ -41,15 +41,22 @@ like [podman-compose](https://github.com/containers/podman-compose) to launch th
 
 ## Containerized Build and Execution
 
-To build the container images, open a terminal session in this directory, then build the images:
+To build the container image for the UI, open a terminal session in this directory and build the image:
 
 ```
 podman build --tag um_mcc_ui_image .
+```
+
+To operate the entire application using your orchestration tool (`podman-compose` in this example), you'll also need to
+clone the API and build a container for it as well.
+
+```
+git clone https://github.com/whorvath2/um_mcc.git
 cd um_mcc
 podman build --tag um_mcc_image .
 ```
 
-To launch the application in the same terminal session, use your orchestration tool (`podman-compose` in this case):
+To launch the application in the same terminal session:
 
 ```
 cd ../
@@ -61,10 +68,13 @@ To see the application, [open your browser to localhost:3000](http://localhost:3
 ## Manual Build and Execution
 
 To build and run the applications manually, you will need the current release
-of [Python](https://www.python.org/downloads/) and [NodeJS](https://nodejs.org/en/download/). After they are installed,
-open a terminal session in this directory, then run both the API and the UI:
+of [Python](https://www.python.org/downloads/) for the API and [NodeJS](https://nodejs.org/en/download/) for the UI.
+After they are installed, open a terminal session in this directory, clone the API, then run both the API and the UI:
 
 ```
+# Clone the API
+git clone https://github.com/whorvath2/um_mcc.git
+
 # Create and activate a virtual python environment
 cd um_mcc
 python3 -m venv .venv
@@ -90,7 +100,7 @@ To see the application, [open your browser to localhost:3000](http://localhost:3
 
 ## Version
 
-1.3.2
+1.3.3
 
 ## Disclaimers
 
