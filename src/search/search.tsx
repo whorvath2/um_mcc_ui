@@ -4,6 +4,7 @@ import MeetingCalculator from "../meetingCalculator/meetingCalculator";
 import {Staffer} from "../types/staffer";
 
 export default function Search() {
+    const api_host = process.env.REACT_APP_UM_MCC_API
     const [nameState, setNameState] = React.useState<string>("");
     const [titleState, setTitleState] = React.useState<string>("");
     const [deptState, setDeptState] = React.useState<string>("");
@@ -74,7 +75,8 @@ export default function Search() {
         const query = 'name='.concat(`${nameState}`)
             .concat('&department=').concat(`${deptState}`)
             .concat('&title=').concat(`${titleState}`);
-        fetch('http://localhost:8000/um_mcc/find?' + query)
+
+        fetch(api_host + 'find?' + query)
             .then(response => response.json())
             .then(data => {
                 const chosenKeys = chosenState.map(item => item.key);

@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "../footer/footer";
 
 export default function MeetingCalculator({chosenStateRef}) {
+    const api_host = process.env.REACT_APP_UM_MCC_API
     const [minutesState, setMinutesState] = React.useState(0)
     const [costState, setCostState] = React.useState("$0");
 
@@ -10,7 +11,7 @@ export default function MeetingCalculator({chosenStateRef}) {
         if (!minutesState){
             return 0
         }
-        fetch('http://localhost:8000/um_mcc/cost/' + minutesState, {
+        fetch(api_host + 'cost/' + minutesState, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
