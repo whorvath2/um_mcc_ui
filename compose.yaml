@@ -1,11 +1,14 @@
 services:
   frontend:
     image: localhost/um_mcc_ui_image
+    env_file:
+      - ./.env
+      - ./.dev_env
     ports:
       - "3000:3000"
 
   backend:
-    image: localhost/um_mcc_image
+    image: localhost/um_mcc_api_image
     ports:
       - "8000:8000"
 

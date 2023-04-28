@@ -4,7 +4,11 @@ import MeetingCalculator from "../meetingCalculator/meetingCalculator";
 import {Staffer} from "../types/staffer";
 
 export default function Search() {
-    const api_host = process.env.REACT_APP_UM_MCC_API
+    const api_host = process.env.REACT_APP_UM_MCC_API;
+    if (!api_host) {
+        throw Error("The api_host is not specified")
+    }
+
     const [nameState, setNameState] = React.useState<string>("");
     const [titleState, setTitleState] = React.useState<string>("");
     const [deptState, setDeptState] = React.useState<string>("");
@@ -72,11 +76,10 @@ export default function Search() {
             return;
         }
         // The API is robust to empty title and department parameters
-        const query = 'name='.concat(`${nameState}`)
+        const query = api_host + 'find?name='.concat(`${nameState}`)
             .concat('&department=').concat(`${deptState}`)
             .concat('&title=').concat(`${titleState}`);
-
-        fetch(api_host + 'find?' + query)
+        fetch(query)
             .then(response => response.json())
             .then(data => {
                 const chosenKeys = chosenState.map(item => item.key);
@@ -85,9 +88,14 @@ export default function Search() {
                     item.chosen = false
                 })
                 setResultsState(data ? data : []);
+                if (!data) {
+                    console.log("No results for '" + query + "'")
+                    alert("No matching records found.")
+                }
+
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error.toString());
                 alert("The API service is not responding.");
             });
     }
@@ -106,8 +114,8 @@ export default function Search() {
                                type={"text"}
                                placeholder={"Search by name"}
                                onChange={event => {
-                                   const nametxt = event.target.value;
-                                   setNameState(nametxt || "");
+                                   const nametxt = event.target.value ? event.target.value.trim() : "";
+                                   setNameState(nametxt);
                                    if (!nametxt) {
                                        setResultsState([]);
                                    }
@@ -118,8 +126,8 @@ export default function Search() {
                                type={"text"}
                                placeholder={"Search by title (optional)"}
                                onChange={event => {
-                                   const titletxt = event.target.value;
-                                   setTitleState(titletxt || "");
+                                   const titletxt = event.target.value ? event.target.value.trim() : "";
+                                   setTitleState(titletxt);
                                }}/>
                         <label className={"label m-2"} htmlFor={"searchDept"}>Department:</label>
                         <input id={"searchDept"}
@@ -127,8 +135,8 @@ export default function Search() {
                                type={"text"}
                                placeholder={"Search by department (optional)"}
                                onChange={event => {
-                                   const depttxt = event.target.value;
-                                   setDeptState(depttxt || "");
+                                   const depttxt = event.target.value ? event.target.value.trim() : "";
+                                   setDeptState(depttxt);
                                }}/>
                         <button className={"btn btn-primary m-1"} disabled={nameState.length === 0}>Search</button>
                         <input className={"btn btn-secondary m-1"} type="reset" onClick={event => {
