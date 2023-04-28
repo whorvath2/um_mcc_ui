@@ -6,6 +6,8 @@ services:
       - ./.dev_env
     ports:
       - "3000:3000"
+    environment:
+      - REACT_APP_UM_MCC_API="http://ummcc.deability.co/um_mcc"
 
   backend:
     image: localhost/um_mcc_api_image

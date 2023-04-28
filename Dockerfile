@@ -5,6 +5,7 @@ ENV VIRTUAL_ENV=".venv"
 ENV PATH=$PATH:$VIRTUAL_ENV/bin
 ENV GUID=1001
 ENV UUID=1002
+ENV REACT_APP_UM_MCC_API="http://localhost:8000/um_mcc/"
 
 # This is needed to update the OS' package manager so that the current version of node will be installed
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
