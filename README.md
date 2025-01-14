@@ -23,7 +23,7 @@ the attendees there.
 There's a lot of value to be realized in measuring the cost of meetings, because it gives us a metric we can use to help
 us see the return-on-investment of staff time. When combined with other metrics (like the presence and quality of
 an agenda; the number or business traits of the attendees; the number of actionable items in the minutes; etc.), we have
-a powerful mesns of studying the business value of both individual meetings and of meeting trends over time.
+a powerful means of studying the business value of both individual meetings and of meeting trends over time.
 
 ## Technical Details
 
